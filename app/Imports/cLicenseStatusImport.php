@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\field_exploration;
+use App\Models\license_status;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class FieldExplorationImport implements ToModel
+class cLicenseStatusImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,7 +14,7 @@ class FieldExplorationImport implements ToModel
     */
     public function model(array $row)
     {
-        return new field_exploration([
+        return new license_status([
             //
         ]);
     }

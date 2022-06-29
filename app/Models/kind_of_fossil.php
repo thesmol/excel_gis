@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class kind_of_fossil extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = '*_id';
+    protected $fillable = [''];
+    public $timestamps = false;
 }

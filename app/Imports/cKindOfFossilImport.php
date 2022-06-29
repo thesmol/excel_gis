@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\license_area;
+use App\Models\kind_of_fossil;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class LicenseAreaImport implements ToModel
+class cKindOfFossilImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,7 +14,7 @@ class LicenseAreaImport implements ToModel
     */
     public function model(array $row)
     {
-        return new license_area([
+        return new kind_of_fossil([
             //
         ]);
     }

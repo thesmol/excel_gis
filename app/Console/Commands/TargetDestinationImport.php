@@ -2,30 +2,25 @@
 
 namespace App\Console\Commands;
 
-
 use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\cTargetDestinationImport;
 
-// spl_autoload_register(function ($class_name) {
-//     include $class_name . '.php';
-// });
-
-class KindOfFossilImport extends Command
+class TargetDestinationImport extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:KindOfFossilImport';
+    protected $signature = 'command:TargetDestinationImport';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import model KindOfFossil from the excel file ias_uvs_summary';
+    protected $description = 'Command description';
 
     /**
      * Execute the console command.
@@ -37,14 +32,14 @@ class KindOfFossilImport extends Command
         $import = new cTargetDestinationImport();
         //$import->onlySheets('Лицензия');
 
-        try
-            {
+        // try
+        //     {
                 Excel::import($import, 'D:\Personal\excel_gis\app\ias_uvs_summary.xlsx');
-            }
-        catch (\Maatwebsite\Excel\Validators\ValidationException $e)
-            {
-                $failures = $e->failures();
-                return dd($failures);
-            }
+        //     }
+        // catch (\Maatwebsite\Excel\Validators\ValidationException $e)
+        //     {
+        //         $failures = $e->failures();
+        //         return $failures;
+        //     }
     }
 }

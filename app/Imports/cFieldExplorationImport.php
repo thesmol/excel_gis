@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\company;
+use App\Models\field_exploration;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class CompanyImport implements ToModel
+class cFieldExplorationImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,7 +14,7 @@ class CompanyImport implements ToModel
     */
     public function model(array $row)
     {
-        return new company([
+        return new field_exploration([
             //
         ]);
     }

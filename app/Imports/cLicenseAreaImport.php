@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\region_field;
+use App\Models\license_area;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class RegionsFieldImport implements ToModel
+class cLicenseAreaImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,7 +14,7 @@ class RegionsFieldImport implements ToModel
     */
     public function model(array $row)
     {
-        return new region_field([
+        return new license_area([
             //
         ]);
     }

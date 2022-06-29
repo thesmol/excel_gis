@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\district_rf;
+use App\Models\license;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class DistrictRFImport implements ToModel
+class cLicenseImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,7 +14,7 @@ class DistrictRFImport implements ToModel
     */
     public function model(array $row)
     {
-        return new district_rf([
+        return new license([
             //
         ]);
     }

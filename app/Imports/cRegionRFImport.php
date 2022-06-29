@@ -5,7 +5,7 @@ namespace App\Imports;
 use App\Models\region_rf;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class RegionRFImport implements ToModel
+class cRegionRFImport implements ToModel
 {
     /**
     * @param array $row

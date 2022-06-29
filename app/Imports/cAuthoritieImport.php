@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\license_status;
+use App\Models\authoritie;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class LicenseStatusImport implements ToModel
+class cAuthoritieImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,7 +14,7 @@ class LicenseStatusImport implements ToModel
     */
     public function model(array $row)
     {
-        return new license_status([
+        return new authoritie([
             //
         ]);
     }

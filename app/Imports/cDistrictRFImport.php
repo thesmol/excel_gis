@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\authoritie;
+use App\Models\district_rf;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class AuthoritieImport implements ToModel
+class cDistrictRFImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,7 +14,7 @@ class AuthoritieImport implements ToModel
     */
     public function model(array $row)
     {
-        return new authoritie([
+        return new district_rf([
             //
         ]);
     }

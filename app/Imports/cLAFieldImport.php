@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\kind_of_fossil;
+use App\Models\la_field;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class KindOfFossilImport implements ToModel
+class cLAFieldImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,7 +14,7 @@ class KindOfFossilImport implements ToModel
     */
     public function model(array $row)
     {
-        return new kind_of_fossil([
+        return new la_field([
             //
         ]);
     }

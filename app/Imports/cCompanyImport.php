@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\la_field;
+use App\Models\company;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class LAFieldImport implements ToModel
+class cCompanyImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,7 +14,7 @@ class LAFieldImport implements ToModel
     */
     public function model(array $row)
     {
-        return new la_field([
+        return new company([
             //
         ]);
     }

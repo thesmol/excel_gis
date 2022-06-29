@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\license;
+use App\Models\field;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class LicenseImport implements ToModel
+class cFieldImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,7 +14,7 @@ class LicenseImport implements ToModel
     */
     public function model(array $row)
     {
-        return new license([
+        return new field([
             //
         ]);
     }
