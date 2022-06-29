@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class field_exploration extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = '*_id';
+    protected $fillable = [''];
+    public $timestamps = false;
 }
