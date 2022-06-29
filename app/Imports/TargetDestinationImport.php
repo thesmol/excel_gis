@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\target_destination;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -13,7 +14,7 @@ use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 
-class TargetDestinationImport implements WithMultipleSheets
+class cTargetDestinationImport implements WithMultipleSheets
 {
 
     public function sheets(): array
@@ -37,6 +38,10 @@ class SheetImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmpty
 
     public function model(array $row)
     {
+        // $target_destinations = target_destination::firstOrCreate([
+        //     'target' => $row['target_destination']
+        // ]);
+        dd($row);
         return new target_destination([
             'target' => $row['target_destination']
         ]);
@@ -44,13 +49,17 @@ class SheetImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmpty
 
     public function chunkSize(): int
     {
-        return 5000;
+        return 1000;
     }
 
     public function rules(): array
     {
         return [
-            'target' => Rule::unique('target_destination', 'target'), // Table name, field in your db
+            'target' => Rule::unique('target_destination', 'target'),
+            'target' => [
+                'required',
+                'string',
+            ]
         ];
     }
 
