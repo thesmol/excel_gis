@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\TargetDestinationImport;
+use App\Imports\cTargetDestinationImport;
 
 // spl_autoload_register(function ($class_name) {
 //     include $class_name . '.php';
@@ -34,7 +34,7 @@ class KindOfFossilImport extends Command
      */
     public function handle()
     {
-        $import = new TargetDestinationImport();
+        $import = new cTargetDestinationImport();
         //$import->onlySheets('Лицензия');
 
         try
@@ -44,7 +44,7 @@ class KindOfFossilImport extends Command
         catch (\Maatwebsite\Excel\Validators\ValidationException $e)
             {
                 $failures = $e->failures();
-                return view('welcome', compact('failures'));
+                return dd($failures);
             }
     }
 }
