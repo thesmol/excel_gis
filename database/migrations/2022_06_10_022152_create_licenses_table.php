@@ -40,15 +40,9 @@ return new class extends Migration
                 ->references('ls_id')->on('license_statuses')
                 ->onDelete('cascade');
 
-            $table->bigInteger('target_destination_id');
-            $table->foreign('target_destination_id')
-                ->references('td_id')->on('target_destinations')
-                ->onDelete('cascade');
+            $table->string('target_destination');
 
-            $table->bigInteger('kind_of_fossil_id');
-            $table->foreign('kind_of_fossil_id')
-                ->references('kf_id')->on('kind_of_fossils')
-                ->onDelete('cascade');
+            $table->string('kind_of_fossil');
 
             $table->bigInteger('authorities_id');
             $table->foreign('authorities_id')
