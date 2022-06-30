@@ -30,6 +30,6 @@ class LicenseStatusImport extends Command
     public function handle()
     {
         $import = new cLicenseStatusImport();
-        Excel::import($import, 'D:\Personal\excel_gis\app\ias_uvs_summary.xlsx');
+        Excel::import($import, 'D:\Personal\excel_gis\app\ias_uvs_summary.xlsx');  
     }
 }
