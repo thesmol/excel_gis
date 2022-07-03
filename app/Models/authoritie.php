@@ -9,7 +9,8 @@ class authoritie extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = '*_id';
-    protected $fillable = [''];
+    protected $primaryKey = 'a_id';
+    protected $fillable = ['authoritie'];
     public $timestamps = false;
+    public $table = 'authorities';
 }
