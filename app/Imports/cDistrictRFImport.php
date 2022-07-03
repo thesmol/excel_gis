@@ -3,19 +3,32 @@
 namespace App\Imports;
 
 use App\Models\district_rf;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class cDistrictRFImport implements ToModel
+class cDistrictRFImport implements WithMultipleSheets
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $row)
+
+    public function sheets(): array
     {
-        return new district_rf([
-            //
-        ]);
+        return [
+            'СубъектРФ' => new SheetImport(),
+        ];
+    }
+}
+
+class SheetImport implements ToCollection, WithHeadingRow
+{
+    public function collection(Collection $rows)
+    {
+        foreach($rows as $row) {
+            if($row['district_rf']!=null){
+                district_rf::firstOrCreate([
+                    'district' => $row['district_rf'],
+                ]);
+            }
+        }
     }
 }
