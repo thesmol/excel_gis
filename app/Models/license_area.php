@@ -9,7 +9,8 @@ class license_area extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = '*_id';
-    protected $fillable = [''];
+    protected $primaryKey = 'la_id';
+    protected $fillable = ['licanse_area_name'];
     public $timestamps = false;
+    public $table = 'license_areas';
 }
