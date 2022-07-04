@@ -9,7 +9,18 @@ class company extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = '*_id';
-    protected $fillable = [''];
+    protected $primaryKey = 'c_id';
+    protected $fillable =
+        ['company_name',
+        'mc_id',
+        'company_status_id',
+        'address',
+        'inn',
+        'code_OKPO',
+        'code_OKATO',
+        'OGRN',
+        'comment'];
+
     public $timestamps = false;
+    public $table = 'companies';
 }
