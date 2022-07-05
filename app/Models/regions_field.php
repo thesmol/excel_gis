@@ -9,7 +9,8 @@ class regions_field extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = '*_id';
-    protected $fillable = [''];
+    protected $primaryKey = ['fields_id', 'region_rves_id'];
+    protected $fillable = ['fields_id', 'region_rves_id'];
     public $timestamps = false;
+    public $table = 'regions_fields';
 }
