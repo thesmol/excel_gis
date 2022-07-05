@@ -9,7 +9,8 @@ class district_rf extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = '*_id';
-    protected $fillable = [''];
+    protected $primaryKey = 'dr_id';
+    protected $fillable = ['district'];
     public $timestamps = false;
+    public $table = 'district_rves';
 }

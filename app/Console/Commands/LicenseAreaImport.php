@@ -29,6 +29,7 @@ class LicenseAreaImport extends Command
      */
     public function handle()
     {
-        return 0;
+        $import = new cLicenseAreaImport();
+        Excel::import($import, 'D:\Personal\excel_gis\app\ias_uvs_summary.xlsx');
     }
 }

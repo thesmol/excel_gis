@@ -9,7 +9,8 @@ class field_exploration extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = '*_id';
-    protected $fillable = [''];
+    protected $primaryKey = 'fe_id';
+    protected $fillable = ['exploration'];
     public $timestamps = false;
+    public $table = 'field_explorations';
 }

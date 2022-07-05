@@ -9,7 +9,8 @@ class field extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = '*_id';
-    protected $fillable = [''];
+    protected $primaryKey = 'f_id';
+    protected $fillable = ['field_name', 'field_explorations_id', 'coords'];
     public $timestamps = false;
+    public $table ='fields';
 }
