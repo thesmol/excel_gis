@@ -23,20 +23,20 @@ class cRegionsFieldImport implements WithMultipleSheets
 
 class SheetImport implements ToCollection, WithHeadingRow
 {
-    private $region_rves;
     private $fields;
 
     public function __construct()
     {
-        $this -> region_rves = region_rf::select('rr_id', 'region_name')->get();
-        $this -> fields = field::select('f_id', 'field_name')->get();
+        ini_set('memory_limit', '200M');
+        $this
+            -> fields = field::select('f_id', 'field_name')
+            ->get();
     }
 
     public function collection(Collection $rows)
     {
         foreach($rows as $row) {
-
-            if($row['field']!=null)
+            if($row['region_rf']!=null and $row['field']!=null)
             {
                 if(stristr($row['field'], '(', true) == 0){
                     $field = $row['field'];
@@ -44,19 +44,27 @@ class SheetImport implements ToCollection, WithHeadingRow
                 else{
                     $field = stristr($row['field'], '(', true);
                 }
+
+                $fields = $this
+                ->fields->where('field_name', $field)
+                ->first();
+
+                $region_rves = region_rf::select('rr_id', 'region_name', 'region_short_name')
+                    ->where('region_name', $row['region_rf'])
+                    ->orWhere('region_short_name', $row['region_rf'])
+                    ->first();
+
+                dump($field);
+                dump($fields -> f_id);
+
+                dump($row['region_rf']);
+                dump($region_rves -> rr_id);
+
+                regions_field::FirstOrCreate([
+                    'region_rves_id' => $region_rves -> rr_id,
+                    'fields_id' => $fields -> f_id,
+                ]);
             }
-
-            $fields = $this->fields->where('field_name', $field)->first();
-            $region_rves = $this->region_rves->where('region_name', $row['regionRF'])->first();
-
-
-            if($row['regionRF']!=null)
-                {
-                    regions_field::Create([
-                        'fields_id' => $fields -> f_id,
-                        'region_rves_id' => $region_rves -> rr_id,
-                    ]);
-                }
         }
     }
 }
