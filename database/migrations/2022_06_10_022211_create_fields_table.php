@@ -22,7 +22,7 @@ return new class extends Migration
                 ->references('fe_id')->on('field_explorations')
                 ->onDelete('cascade');
 
-            $table->text('coords');
+            $table->text('coords')->nullable();
         });
     }
 
