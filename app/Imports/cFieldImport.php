@@ -37,6 +37,7 @@ class SheetImport implements ToCollection, WithHeadingRow
 
             if($row['field']!=null)
                 {
+
                     if(stristr($row['field'], '(', true) == 0){
                         $field = $row['field'];
                     }
@@ -46,6 +47,7 @@ class SheetImport implements ToCollection, WithHeadingRow
 
                     field::FirstOrCreate([
                         'field_name' => trim($field),
+
                         'field_explorations_id' => $field_explorations -> fe_id ?? NULL,
                         'coords' => $row['coords'],
                     ]);

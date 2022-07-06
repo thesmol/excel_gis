@@ -22,16 +22,16 @@ return new class extends Migration
                 ->references('c_id')->on('companies')
                 ->onDelete('cascade');
 
-            $table->bigInteger('company_status_id');
+            $table->bigInteger('company_status_id')-> nullable();
             $table->foreign('company_status_id')
                 ->references('cs_id')->on('company_statuses')
                 ->onDelete('cascade');
 
-            $table->text('address');
-            $table->integer('inn');
-            $table->integer('code_OKPO');
-            $table->integer('code_OKATO');
-            $table->integer('OGRN');
+            $table->text('address')-> nullable();
+            $table->integer('inn')-> nullable();
+            $table->integer('code_OKPO')-> nullable();
+            $table->integer('code_OKATO')-> nullable();
+            $table->integer('OGRN')-> nullable();
             $table->text('comment') -> nullable();
         });
     }

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class la_field extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = '*_id';
+    protected $fillable = [''];
+    public $timestamps = false;
 }
