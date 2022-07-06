@@ -14,6 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('la_fields', function (Blueprint $table) {
+            $table->bigIncrements('laf_id');
+
             $table->bigInteger('license_areas_id');
             $table->foreign('license_areas_id')
                 ->references('la_id')->on('license_areas')
@@ -23,8 +25,6 @@ return new class extends Migration
             $table->foreign('fields_id')
                 ->references('f_id')->on('fields')
                 ->onDelete('cascade');
-
-            $table->primary(['license_areas_id','fields_id']);
         });
     }
 
