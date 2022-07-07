@@ -36,7 +36,7 @@ class SheetImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach($rows as $row) {
-            if($row['region_rf']!=null and $row['field']!=null)
+            if($row['region_rf']!=null and $row['field']!=null and $row['region_rf']!='Субъект не указан')
             {
                 if(stristr($row['field'], '(', true) == 0){
                     $field = $row['field'];
@@ -44,21 +44,16 @@ class SheetImport implements ToCollection, WithHeadingRow
                 else{
                     $field = stristr($row['field'], '(', true);
                 }
+                $field = trim($field);
 
                 $fields = $this
-                ->fields->where('field_name', $field)
-                ->first();
+                    ->fields->where('field_name', $field)
+                    ->first();
 
                 $region_rves = region_rf::select('rr_id', 'region_name', 'region_short_name')
                     ->where('region_name', $row['region_rf'])
                     ->orWhere('region_short_name', $row['region_rf'])
                     ->first();
-
-                dump($field);
-                dump($fields -> f_id);
-
-                dump($row['region_rf']);
-                dump($region_rves -> rr_id);
 
                 regions_field::FirstOrCreate([
                     'region_rves_id' => $region_rves -> rr_id,
