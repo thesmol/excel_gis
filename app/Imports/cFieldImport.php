@@ -36,15 +36,18 @@ class SheetImport implements ToCollection, WithHeadingRow
             $field_explorations = $this->field_explorations->where('exploration', $row['field_exploration'])->first();
 
             if($row['field']!=null)
+                {
+
                     if(stristr($row['field'], '(', true) == 0){
                         $field = $row['field'];
                     }
                     else{
                         $field = stristr($row['field'], '(', true);
                     }
-                {
-                    field::Create([
-                        'field_name' => $field,
+
+                    field::FirstOrCreate([
+                        'field_name' => trim($field),
+
                         'field_explorations_id' => $field_explorations -> fe_id ?? NULL,
                         'coords' => $row['coords'],
                     ]);

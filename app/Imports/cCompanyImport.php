@@ -31,11 +31,11 @@ class SheetImport implements ToCollection, WithHeadingRow
 
     public function collection(Collection $rows)
     {
-
         foreach($rows as $row)
         {
             $company_statuses = $this->company_statuses->where('status', $row['company_status'])->first();
-            if($row['name']!=null && ($row['mother_company'] == 'Самостоятельные' || $row['mother_company'] == NULL))
+
+            if($row['name']!=null)
             {
                 company::FirstOrCreate([
                     'company_name' => $row['name'],
@@ -50,5 +50,26 @@ class SheetImport implements ToCollection, WithHeadingRow
                 ]);
             }
         }
+
+        foreach($rows as $row)
+        {
+            $management_company = company::select('c_id')
+				->where('company_name', trim($row['mother_company']))
+				->value('c_id');
+            if(trim($row['mother_company'])==null || trim($row['mother_company'])=='Самостоятельные') continue;
+
+            company::where('company_name', trim($row['name']))->update(['mc_id' => $management_company]);
+        }
+
+        // foreach($rows as $row)
+        // {
+        //     if($row['mother_company'] != 'Самостоятельные' && $row['mother_company'] != NULL)
+        //     {
+        //         company::FirstOrCreate([
+        //             'company_name' => $row['mother_company'],
+        //         ]);
+        //     }
+        // }
+
     }
 }
