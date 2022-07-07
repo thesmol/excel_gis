@@ -9,7 +9,8 @@ class la_field extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = '*_id';
-    protected $fillable = [''];
+    protected $primaryKey = 'laf_id';
+    protected $fillable = ['license_areas_id', 'fields_id'];
+    public $table = 'la_fields';
     public $timestamps = false;
 }
