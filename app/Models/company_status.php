@@ -9,7 +9,8 @@ class company_status extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = '*_id';
-    protected $fillable = [''];
+    protected $primaryKey = 'cs_id';
+    protected $fillable = ['status'];
     public $timestamps = false;
+    public $table = 'company_statuses';
 }
