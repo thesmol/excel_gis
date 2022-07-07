@@ -36,7 +36,7 @@ class SheetImport implements ToCollection, WithHeadingRow
                     }
 
                     license_area::FirstOrCreate([
-                        'licanse_area_name' => $license_area,
+                        'licanse_area_name' => trim($license_area),
                     ]);
                 }
         }
