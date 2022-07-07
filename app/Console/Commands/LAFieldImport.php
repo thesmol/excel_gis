@@ -29,6 +29,7 @@ class LAFieldImport extends Command
      */
     public function handle()
     {
-        return 0;
+        $import = new cLAFieldImport();
+        Excel::import($import, 'D:\Personal\excel_gis\app\ias_uvs_summary.xlsx');
     }
 }
