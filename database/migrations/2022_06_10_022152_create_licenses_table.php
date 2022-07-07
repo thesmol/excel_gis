@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->string('l_series');
             $table->integer('l_number');
-            $table->string('l_type  ');
+            $table->string('l_type');
 
             $table->bigInteger('company_id');
             $table->foreign('company_id')
@@ -40,11 +40,11 @@ return new class extends Migration
                 ->references('ls_id')->on('license_statuses')
                 ->onDelete('cascade');
 
-            $table->string('target_destination');
+            $table->string('target_destination')-> nullable();
 
-            $table->string('kind_of_fossil');
+            $table->string('kind_of_fossil')-> nullable();
 
-            $table->bigInteger('authorities_id');
+            $table->bigInteger('authorities_id')-> nullable();
             $table->foreign('authorities_id')
                 ->references('a_id')->on('authorities')
                 ->onDelete('cascade');
@@ -52,7 +52,7 @@ return new class extends Migration
             $table->date('date_of_start');
             $table->date('date_of_end');
             $table->date('date_of_annulation')->nullable();
-            $table->text('coords');
+            $table->text('coords')-> nullable();
         });
     }
 
