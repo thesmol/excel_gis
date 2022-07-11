@@ -38,7 +38,7 @@ class SheetImport implements ToCollection, WithHeadingRow
             if($row['name']!=null)
             {
                 company::FirstOrCreate([
-                    'company_name' => $row['name'],
+                    'company_name' => trim($row['name']),
                     'mc_id' => NULL,
                     'company_status_id' => $company_statuses -> cs_id ?? NULL,
                     'address' => $row['address'],
