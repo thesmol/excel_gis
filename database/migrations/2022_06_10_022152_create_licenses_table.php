@@ -22,7 +22,7 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             $table->string('l_series');
-            $table->integer('l_number');
+            $table->string('l_number');
             $table->string('l_type');
 
             $table->bigInteger('company_id');
@@ -40,7 +40,7 @@ return new class extends Migration
                 ->references('ls_id')->on('license_statuses')
                 ->onDelete('cascade');
 
-            $table->string('target_destination')-> nullable();
+            $table->text('target_destination')-> nullable();
 
             $table->string('kind_of_fossil')-> nullable();
 
