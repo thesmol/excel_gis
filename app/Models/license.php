@@ -28,10 +28,4 @@ class license extends Model
         ];
     public $timestamps = false;
     public $table = 'licenses';
-    static function rules(): array {
-		return [
-			'company_id' => 'required|integer|exists:company, c_id',
-
-		];
-	}
 }

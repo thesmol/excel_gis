@@ -11,9 +11,11 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+
 
 
 class cLicenseImport implements WithMultipleSheets
@@ -27,12 +29,17 @@ class cLicenseImport implements WithMultipleSheets
     }
 }
 
-class SheetImport implements ToCollection, WithHeadingRow
+class SheetImport implements ToCollection, WithHeadingRow, WithChunkReading, ShouldQueue
 {
     private $companies;
     private $license_areas;
     private $license_statuses;
     private $authorities;
+
+    public function chunkSize(): int
+    {
+        return 5000;
+    }
 
     public function __construct()
     {
@@ -44,6 +51,7 @@ class SheetImport implements ToCollection, WithHeadingRow
 
     public function collection(Collection $rows)
     {
+        ini_set('memory_limit', '200M');
         foreach($rows as $row)
         {
             if(stristr($row['license_area'], '(', true) == 0){
@@ -58,18 +66,8 @@ class SheetImport implements ToCollection, WithHeadingRow
             $license_statuses = $this->license_statuses->where('status', $row['license_status'])->first();
             $authorities = $this->authorities->where('authoritie', $row['authoritie'])->first();
 
-            dump('=========================');
-            dump(trim($row['series']));
-            dump(trim($row['number']));
-            dump(trim($row['type']));
-            dump($companies -> c_id);
-            dump($license_areas -> la_id);
-            dump($license_statuses -> ls_id ?? null);
-            dump($row['target_destination']);
-            dump($row['kind_of_fossil']);
-            dump($authorities -> a_id ?? null);
-
-            $creationArray=([
+            if(($companies -> c_id ?? null) != null && ($license_areas -> la_id ?? null) !=null){
+                $creationArray=([
                 'prev_l_id' => null,
                 'l_series' => trim($row['series']),
                 'l_number' => trim($row['number']),
@@ -77,35 +75,32 @@ class SheetImport implements ToCollection, WithHeadingRow
                 'company_id' => $companies -> c_id,
                 'license_area_id' => $license_areas -> la_id,
                 'license_status_id' => $license_statuses -> ls_id ?? null,
-                'target_destination' => $row['target_destination'],
-                'kind_of_fossil' => $row['kind_of_fossil'],
+                'target_destination' => trim($row['target_destination']),
+                'kind_of_fossil' => trim($row['kind_of_fossil']),
                 'authorities_id' => $authorities -> a_id ?? null,
                 'date_of_start' => Date::excelToDateTimeObject($row['date_of_start'])->format('Y-m-d'),
                 'date_of_end' => Date::excelToDateTimeObject($row['date_of_end'])->format('Y-m-d'),
                 'date_of_annulation' => Date::excelToDateTimeObject($row['date_of_annulation'])->format('Y-m-d'),
-                'coords' => $row['coords']
-            ]);
-
-            // $validator = Validator::make($creationArray, license::rules());
-			// if ($validator->fails()) {
-			// 	continue;
-			// }
-
-            if($row['company']!=null && $row['license_area']!=null && $row['series']!=null && $row['number']!=null && $row['type']!=null && $row['date_of_start']!=null && $row['date_of_end']!=null)
-            {
-                license ::FirstOrCreate($creationArray);
+                'coords' => trim($row['coords'])
+                ]);
             }
+            license ::FirstOrCreate($creationArray);
+
         }
+
         foreach($rows as $row)
         {
-            $prev_license = license::select('l_id')
-				->where(DB::raw('CONCAT(l_series, l_number, l_type'), $row['prev_license'])
-				->value('l_id');
+            $prev_license = DB::table('licenses')
+				->select('l_id')
+				->where(DB::raw('CONCAT(l_series, l_number, l_type)'), '=', trim($row['prev_license']))
+				->get();
 
-            license::
-                where('l_series', trim($row['series']))
-                ->where('l_numper', trim($row['number']))
-                ->where('l_type', trim($row['type']))
+			if (count($prev_license) == 0) continue;
+			$prev_license = $prev_license[0]->l_id;
+
+            License::where('l_series', '=', trim($row['series']))
+                ->where('l_number', '=', trim($row['number']))
+                ->where('l_type', '=', trim($row['type']))
                 ->update(['prev_l_id' => $prev_license]);
         }
     }
